@@ -162,6 +162,25 @@ services:
     ports:
       - "5434:5432"
   
+  dlt:
+    build:
+      context: ./dlt
+      dockerfile: Dockerfile
+    volumes:
+      - ./dlt/data:/app/data
+    depends_on:
+      - minio  # Dependendo de onde o MinIO está sendo usado para armazenar dados
+
+  dbt:
+    build:
+      context: ./dbt
+      dockerfile: Dockerfile
+    volumes:
+      - ./dbt:/app
+    environment:
+      - DBT_PROFILES_DIR=/app/profiles.yml  # Configure conforme necessário
+    depends_on:
+      - postgres  # Dependendo de onde o PostgreSQL está sendo usado
   
 networks:
   default:
