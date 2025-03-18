@@ -169,7 +169,7 @@ services:
     volumes:
       - ./dlt/data:/app/data
     depends_on:
-      - minio  # Dependendo de onde o MinIO está sendo usado para armazenar dados
+      - minio
 
   dbt:
     build:
@@ -178,9 +178,28 @@ services:
     volumes:
       - ./dbt:/app
     environment:
-      - DBT_PROFILES_DIR=/app/profiles.yml  # Configure conforme necessário
+      - DBT_PROFILES_DIR=/app/profiles.yml
     depends_on:
-      - postgres  # Dependendo de onde o PostgreSQL está sendo usado
+      - postgres 
+
+  tensorflow:
+    build:
+      context: ./tensorflow
+      dockerfile: Dockerfile
+    container_name: tensorflow_app
+    volumes:
+      - ./tensorflow/movies:/movies
+    environment:
+      - MINIO_HOST=minio:9000
+      - MINIO_ACCESS_KEY=access_key
+      - MINIO_SECRET_KEY=secret_key
+    depends_on:
+      - minio
+    ports:
+      - "5000:5000"
+
+volumes:
+  minio_data:
   
 networks:
   default:

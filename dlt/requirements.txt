@@ -11,7 +11,7 @@ cachetools==5.5.2
 certifi==2025.1.31
 charset-normalizer==3.4.1
 click==8.1.8
-dlt==1.7.0
+dlt==0.3.23
 frozenlist==1.5.0
 fsspec==2025.2.0
 gitdb==4.0.12
