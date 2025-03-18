@@ -2,7 +2,7 @@ import pandas as pd
 import tensorflow as tf
 from minio import Minio
 
-client = Minio('localhost:9000', access_key='access_key', secret_key='secret_key', secure=False)
+client = Minio('localhost:9000', access_key='root', secret_key='rootrootroot', secure=False)
 client.fget_object('bucket-name', 'toy-data-platform-main/dlt/data/meta_critic.csv', 'meta_critic.csv')
 
 df = pd.read_csv('meta_critic.csv')
